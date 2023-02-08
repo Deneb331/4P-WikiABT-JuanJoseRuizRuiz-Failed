@@ -1,5 +1,49 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<div class="container-fluid">
+    <div class="col-12 mt-3">
+        <h3>Categories</h3>
+        <div class="row">
+            {% for category in category_list %}
+            <div class="col-md-4">
+                <div class="card mb-3 category-card">
+                    <div class="image-container">
+                        {% if "placeholder" in category.featured_image.url %}
+                        <img class="card-img"
+                            src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg">
+                        <div class="card-img-overlay d-flex align-items-center">
+                            <div class="card-body text-center">
+                                <a href="{% url 'post_list' category.slug %}" class="category-link">
+                                    <h2 class="card-title">{{ category.title }}</h2>
+                                    <p class="card-text">{{ category.description }}</p>
+                                </a>
+                            </div>
+                        </div>
+                        {% else %}
+                        <img class="card-img" src=" {{ category.featured_image.url }}">
+                        <div class="card-img-overlay d-flex align-items-center">
+                            <div class="card-body text-center">
+                                <a href="{% url 'post_list' category.slug %}" class="category-link">
+                                    <h2 class="card-title">{{ category.title }}</h2>
+                                    <p class="card-text">{{ category.description }}</p>
+                                </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% if forloop.counter|divisibleby:3 %}
+        </div>
+        <div class="row">
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-12 mt-3">
+        <h3>Favourite Posts</h3>
+        <p>Work in progress...</p>
+    </div>
+</div>
 {% endblock content %}
