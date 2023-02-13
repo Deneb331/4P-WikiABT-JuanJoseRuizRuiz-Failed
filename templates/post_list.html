@@ -1,5 +1,45 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>post list test</h1>
+<div class="container-fluid">
+    <div class="col-12 mt-3">
+        <h3> {{ category_list.title }} Post List</h3>
+        <div class="row">
+            {% for post in post_list.posts %}
+            <div class="col-md-4">
+                <div class="card mb-3 post-card">
+                    <div class="image-container">
+                        {% if "placeholder" in post.featured_image.url %}
+                        <img class="card-img"
+                            src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg">
+                        <div class="card-img-top d-flex align-items-center">
+                            <div class="card-body text-center">
+                                <a href="{% url 'post_view' post.slug %}" class="post-link">
+                                    <h2 class="card-title">{{ post.title }}</h2>
+                                    <p class="card-text">{{ post.description }}</p>
+                                </a>
+                            </div>
+                        </div>
+                        {% else %}
+                        <img class="card-img" src=" {{ post.featured_image.url }}">
+                        <div class="card-img-top d-flex align-items-center">
+                            <div class="card-body text-center">
+                                <a href="{% url 'post_view' post.slug %}" class="post-link">
+                                    <h2 class="card-title">{{ post.title }}</h2>
+                                    <p class="card-text">{{ post.description }}</p>
+                                </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% if forloop.counter|divisibleby:3 %}
+        </div>
+        <div class="row">
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock content %}
